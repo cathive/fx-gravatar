@@ -1,0 +1,6 @@
+This library provides a nice API to be used in conjunction with
+so-called globally recognized avatars, which are available from
+www.gravatar.com
+
+It also provides a little example application , the "Gravatar Viewer"
+to demonstrate it's usage with JavaFX 2.
