@@ -22,18 +22,69 @@ package com.cathive.fx.gravatar;
  */
 public enum FileTypeExtension {
 
-    PNG(".png"),
+    /**
+     * PNG image file format.
+     */
+    PNG(".png", true),
 
-    JPEG(".jpg");
+    /**
+     * JPG/JPEG image file format.
+     */
+    JPEG(".jpg", true),
 
+    /**
+     * JSON Profile Data.
+     * See {@link http://en.gravatar.com/site/implement/profiles/json/} for details
+     */
+    JSON(".json", false),
+
+    /**
+     * XML Profile Data.
+     * See {@link http://en.gravatar.com/site/implement/profiles/xml/} for details
+     */
+    XML(".xml", false),
+
+    /**
+     * PHP Profile Data.
+     * See {@link http://en.gravatar.com/site/implement/profiles/php/} for details
+     */
+    PHP(".php", false),
+
+    /**
+     * VCF/vCard.
+     * See {@link http://en.gravatar.com/site/implement/profiles/vcf/} for details
+     */
+    VCF(".vcf", false),
+
+    /**
+     * QR Codes.
+     * Produces a QR Code image in PNG format that will link directly to the
+     * Gravatar profile page of the requested user when scanned by a
+     * QR-compatible device.
+     * See {@link http://en.gravatar.com/site/implement/profiles/qr/} for details
+     */
+    QR_CODE(".qr", true);
 
     private final String stringValue;
+    private final boolean imageFormat;
 
-    private FileTypeExtension(final String stringValue) {
+    private FileTypeExtension(final String stringValue, final boolean imageFormat) {
         this.stringValue = stringValue;
+        this.imageFormat = imageFormat;
     }
     public String stringValue() {
         return this.stringValue;
+    }
+
+    /**
+     * Checks whether this file type extension can be used to retrieve encoded
+     * image data, that can be used to construct a JAVA FX UI <code>Image</code>
+     * object or not.
+     * @return  <code>true</code> if the format indicates encoded image data,
+     *          <code>false</code> otherwise.
+     */
+    public boolean isImageFormat() {
+        return this.imageFormat;
     }
 
 }

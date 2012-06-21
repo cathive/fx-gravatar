@@ -21,6 +21,7 @@ import com.cathive.fx.gravatar.FileTypeExtension;
 import com.cathive.fx.gravatar.GravatarUrlBuilder;
 import com.cathive.fx.gravatar.Rating;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -89,7 +90,12 @@ public class GravatarViewerController implements Initializable {
             }
         });
 
-        final List<FileTypeExtension> fileTypeExtensions = Arrays.asList(FileTypeExtension.values());
+        final List<FileTypeExtension> fileTypeExtensions = new ArrayList<>();
+        for (FileTypeExtension ext: FileTypeExtension.values()) {
+            if (ext.isImageFormat()) {
+                fileTypeExtensions.add(ext);
+            }
+        }
         imageTypeChoiceBox.setItems(FXCollections.observableArrayList(fileTypeExtensions));
         imageTypeChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<FileTypeExtension>() {
             @Override
