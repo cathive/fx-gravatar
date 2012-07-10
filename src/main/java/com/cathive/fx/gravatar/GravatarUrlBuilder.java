@@ -30,8 +30,8 @@ import javafx.util.Builder;
  */
 public class GravatarUrlBuilder implements Builder<URL> {
 
-    private static final String BASE_REQUEST_HTTP = "http://www.gravatar.com/avatar/";
-    private static final String BASE_REQUEST_HTTPS = "https://www.gravatar.com/avatar/";
+    public static final String BASE_REQUEST_HTTP = "http://www.gravatar.com/avatar/";
+    public static final String BASE_REQUEST_HTTPS = "https://www.gravatar.com/avatar/";
     public static final int MIN_SIZE = 1;
     public static final int MAX_SIZE = 512;
     private String emailHash = null;
