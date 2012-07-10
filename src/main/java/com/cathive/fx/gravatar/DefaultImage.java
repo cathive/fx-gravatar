@@ -46,6 +46,7 @@ public enum DefaultImage {
     private DefaultImage(final String stringValue) {
         this.stringValue = stringValue;
     }
+
     public String stringValue() {
         return this.stringValue;
     }
