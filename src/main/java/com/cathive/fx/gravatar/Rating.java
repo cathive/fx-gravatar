@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2012 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,6 +51,7 @@ public enum Rating {
     private Rating(final String stringValue) {
         this.stringValue = stringValue;
     }
+
     public String stringValue() {
         return this.stringValue;
     }
