@@ -28,27 +28,37 @@ import javafx.util.Builder;
  *
  * @author headcr4sh
  */
-public class GravatarUrlBuilder implements Builder<URL> {
+public final class GravatarUrlBuilder implements Builder<URL> {
 
     public static final String BASE_REQUEST_HTTP = "http://www.gravatar.com/avatar/";
     public static final String BASE_REQUEST_HTTPS = "https://www.gravatar.com/avatar/";
-    public static final int MIN_SIZE = 1;
-    public static final int MAX_SIZE = 512;
+
+    // Some default values and constraints.
+    public static final Integer SIZE_DEFAULT = null; // Default from gravatar.com is 80!
+    public static final int SIZE_MINIMUM = 1;
+    public static final int SIZE_MAXIMUM = 512;
+    public static final String DEFAULT_IMAGE_DEFAULT = null;
+    public static final Boolean FORCE_DEFAULT_DEFAULT = null;
+    public static final String RATING_DEFAULT = null;
+    public static final boolean SECURE_DEFAULT = false;
+    public static final String FILE_TYPE_EXTENSION_DEFAULT = null;
+
     private String emailHash = null;
-    private String fileTypeExtension = null;
+    private String fileTypeExtension = FILE_TYPE_EXTENSION_DEFAULT;
     /**
-     * Default size is 80px. Minimum value: 1, maximum value: 512
+     * Default size is {@link #SIZE_DEFAULT 80px}.
+     * <p>Minimum value: {@link #SIZE_MINIMUM 1px}, maximum value: {@link MAX_SIZE 512px}.</p>
      */
-    private Integer size = null;
-    private String defaultImage = null;
-    private Boolean forceDefault = null;
-    private String rating = null;
+    private Integer size = SIZE_DEFAULT;
+    private String defaultImage = DEFAULT_IMAGE_DEFAULT;
+    private Boolean forceDefault = FORCE_DEFAULT_DEFAULT;
+    private String rating = RATING_DEFAULT;
     /**
      * This flag indicates, whether HTTPS should be used instead of HTTP to
      * retrieve Gravatar images. Default value:
      * <code>false</code>
      */
-    private boolean secure = false;
+    private boolean secure = SECURE_DEFAULT;
 
     private GravatarUrlBuilder() {
         super();
@@ -104,7 +114,7 @@ public class GravatarUrlBuilder implements Builder<URL> {
     }
 
     public GravatarUrlBuilder fileTypeExtension(FileTypeExtension fileTypeExtension) {
-        this.fileTypeExtension = fileTypeExtension.stringValue();
+        this.fileTypeExtension = fileTypeExtension == null ? null : fileTypeExtension.stringValue();
         return this;
     }
 
@@ -114,15 +124,15 @@ public class GravatarUrlBuilder implements Builder<URL> {
     }
     
     public GravatarUrlBuilder size(int size) {
-        if (size < MIN_SIZE || size > MAX_SIZE) {
-            throw new IllegalArgumentException(String.format("Size must be a value between %d and %d", MIN_SIZE, MAX_SIZE));
+        if (size < SIZE_MINIMUM || size > SIZE_MAXIMUM) {
+            throw new IllegalArgumentException(String.format("Size must be a value between %d and %d", SIZE_MINIMUM, SIZE_MAXIMUM));
         }
         this.size = Integer.valueOf(size);
         return this;
     }
 
     public GravatarUrlBuilder defaultImage(DefaultImage defaultImage) {
-        this.defaultImage = defaultImage.stringValue();
+        this.defaultImage = defaultImage == null ? null : defaultImage.stringValue();
         return this;
     }
 
