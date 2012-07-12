@@ -26,7 +26,7 @@ import javafx.util.Builder;
 
 /**
  *
- * @author headcr4sh
+ * @author Benjamin P. Jung
  */
 public final class GravatarUrlBuilder implements Builder<URL> {
 
@@ -34,11 +34,10 @@ public final class GravatarUrlBuilder implements Builder<URL> {
     public static final String BASE_REQUEST_HTTPS = "https://www.gravatar.com/avatar/";
 
     // Some default values and constraints.
-    public static final Integer SIZE_DEFAULT = null; // Default from gravatar.com is 80!
     public static final int SIZE_MINIMUM = 1;
     public static final int SIZE_MAXIMUM = 512;
     public static final String DEFAULT_IMAGE_DEFAULT = null;
-    public static final Boolean FORCE_DEFAULT_DEFAULT = null;
+    public static final boolean FORCE_DEFAULT_DEFAULT = false;
     public static final String RATING_DEFAULT = null;
     public static final boolean SECURE_DEFAULT = false;
     public static final String FILE_TYPE_EXTENSION_DEFAULT = null;
@@ -49,9 +48,9 @@ public final class GravatarUrlBuilder implements Builder<URL> {
      * Default size is {@link #SIZE_DEFAULT 80px}.
      * <p>Minimum value: {@link #SIZE_MINIMUM 1px}, maximum value: {@link MAX_SIZE 512px}.</p>
      */
-    private Integer size = SIZE_DEFAULT;
+    private Integer size = null;
     private String defaultImage = DEFAULT_IMAGE_DEFAULT;
-    private Boolean forceDefault = FORCE_DEFAULT_DEFAULT;
+    private boolean forceDefault = FORCE_DEFAULT_DEFAULT;
     private String rating = RATING_DEFAULT;
     /**
      * This flag indicates, whether HTTPS should be used instead of HTTP to
@@ -88,9 +87,9 @@ public final class GravatarUrlBuilder implements Builder<URL> {
             sb.append(String.format("d=%s", defaultImage));
             getParamCount += 1;
         }
-        if (forceDefault != null) {
+        if (forceDefault) {
             sb.append(getParamCount > 0 ? '&' : '?');
-            sb.append(String.format("f=%s", String.valueOf(forceDefault.booleanValue())));
+            sb.append("f=true");
             getParamCount += 1;
         }
         if (rating != null) {
@@ -151,7 +150,7 @@ public final class GravatarUrlBuilder implements Builder<URL> {
     }
 
     public GravatarUrlBuilder rating(Rating rating) {
-        this.rating = rating.stringValue();
+        this.rating = rating == null ? null : rating.stringValue();
         return this;
     }
 
