@@ -16,9 +16,9 @@
 
 package com.cathive.fx.gravatar.viewer;
 
-import com.cathive.fx.gravatar.GravatarUrlBuilder;
 import java.io.IOException;
 import java.util.ResourceBundle;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,10 +41,8 @@ public class GravatarViewer extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        final GravatarUrlBuilder gravatarUrlBuilder = GravatarUrlBuilder.create();
-
         final Parent root = FXMLLoader.load(getClass().getResource("GravatarViewer.fxml"), ResourceBundle.getBundle(GravatarViewer.class.getName()));
-        
+
         primaryStage.setTitle("Gravatar Viewer");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 600, 400));

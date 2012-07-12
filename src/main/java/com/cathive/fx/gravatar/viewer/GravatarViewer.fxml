@@ -10,12 +10,17 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import com.cathive.fx.gravatar.GravatarImageView?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" padding="$x2" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cathive.fx.gravatar.viewer.GravatarViewerController">
+  <fx:define>
+    <String fx:id="cathiveUrl" fx:value="http://www.cathive.com/"/>
+    <String fx:id="githubUrl" fx:value="http://github.com/cathive/fx-gravatar/"/>
+  </fx:define>
   <children>
     <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
-        <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" text="No Gravatar loaded!" BorderPane.alignment="CENTER" />
+        <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" text="$githubUrl" BorderPane.alignment="CENTER" />
       </bottom>
       <center>
         <VBox BorderPane.alignment="TOP_CENTER">
@@ -40,7 +45,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
               <children>
-                <ImageView id="" fx:id="gravatarImageView" fitHeight="80.0" fitWidth="80.0" preserveRatio="true" />
+                <GravatarImageView id="" fx:id="gravatarImageView" fitHeight="80.0" fitWidth="80.0" preserveRatio="true" />
               </children>
             </HBox>
           </children>
@@ -61,11 +66,13 @@
                     <Insets top="16.0" fx:id="x1" />
                   </VBox.margin>
                 </Label>
-                <ChoiceBox fx:id="imageTypeChoiceBox" prefWidth="160.0"/>
+                <ComboBox fx:id="imageTypeComboBox" prefWidth="160.0"/>
                 <Label prefWidth="160.0" text="Rating" VBox.margin="$x1" />
-                <ChoiceBox fx:id="ratingChoiceBox" prefWidth="176.0"/>
+                <ComboBox fx:id="ratingComboBox" prefWidth="176.0"/>
                 <Label prefWidth="160.0" text="Default Image" VBox.margin="$x1" />
-                <ChoiceBox fx:id="defaultImageChoiceBox" prefWidth="176.0"/>
+                <ComboBox fx:id="defaultImageComboBox" prefWidth="176.0"/>
+                <Label prefWidth="160.0" text="Size" VBox.margin="$x1" />
+                <ComboBox fx:id="gravatarSizeComboBox" prefWidth="176.0"/>
               </children>
               <padding>
                 <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" fx:id="x2" />

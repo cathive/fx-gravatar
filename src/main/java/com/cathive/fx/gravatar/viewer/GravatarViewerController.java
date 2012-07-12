@@ -16,26 +16,27 @@
 
 package com.cathive.fx.gravatar.viewer;
 
-import com.cathive.fx.gravatar.DefaultImage;
-import com.cathive.fx.gravatar.FileTypeExtension;
-import com.cathive.fx.gravatar.GravatarUrlBuilder;
-import com.cathive.fx.gravatar.Rating;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.util.Callback;
+
+import com.cathive.fx.gravatar.DefaultImage;
+import com.cathive.fx.gravatar.FileTypeExtension;
+import com.cathive.fx.gravatar.GravatarImageView;
+import com.cathive.fx.gravatar.Rating;
 
 /**
  * 
@@ -43,52 +44,29 @@ import javafx.scene.image.ImageView;
  */
 public class GravatarViewerController implements Initializable {
 
-    @FXML
-    private ChoiceBox<DefaultImage> defaultImageChoiceBox;
+    @FXML private ComboBox<DefaultImage> defaultImageComboBox;
+    @FXML private CheckBox forceDefaultImageCheckBox;
+    @FXML private CheckBox forceHttpsCheckBox;
+    @FXML private GravatarImageView gravatarImageView;
+    @FXML private ComboBox<FileTypeExtension> imageTypeComboBox;
+    @FXML private ComboBox<Rating> ratingComboBox;
+    @FXML private ComboBox<Integer> gravatarSizeComboBox;
+    @FXML private TextField emailAddressTextField;
+    @FXML private Label statusLabel;
 
     @FXML
-    private CheckBox forceDefaultImageCheckBox;
-
-    @FXML
-    private CheckBox forceHttpsCheckBox; // Value injected by FXMLLoader
-
-    @FXML
-    private ImageView gravatarImageView;
-
-    @FXML
-    private ChoiceBox<FileTypeExtension> imageTypeChoiceBox;
-
-    @FXML
-    private ChoiceBox<Rating> ratingChoiceBox;
-
-    @FXML
-    private TextField emailAddressTextField;
-
-    @FXML
-    private Label statusLabel;
-
-    private final GravatarUrlBuilder urlBuilder = GravatarUrlBuilder.create();
-
-    
-    @FXML
-    public void loadGravatar() {
-        final URL gravatarUrl = urlBuilder.build();
-        statusLabel.setText(gravatarUrl.toExternalForm());
-        gravatarImageView.setImage(new Image(gravatarUrl.toExternalForm()));
-        
+    private void loadGravatar() {
+        gravatarImageView.update();
     }
 
-    @Override // This method is called by the FXMLLoader when initialization is complete
+    @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 
         final List<DefaultImage> defaultImages = Arrays.asList(DefaultImage.values());
-        defaultImageChoiceBox.setItems(FXCollections.observableArrayList(defaultImages));
-        defaultImageChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<DefaultImage>() {
-            @Override
-            public void changed(ObservableValue<? extends DefaultImage> observableValue, DefaultImage oldValue, DefaultImage newValue) {
-                urlBuilder.defaultImage(newValue);
-            }
-        });
+        defaultImageComboBox.setItems(FXCollections.observableArrayList(defaultImages));
+
+        final List<Rating> ratings = Arrays.asList(Rating.values());
+        ratingComboBox.setItems(FXCollections.observableArrayList(ratings));
 
         final List<FileTypeExtension> fileTypeExtensions = new ArrayList<>();
         for (FileTypeExtension ext: FileTypeExtension.values()) {
@@ -96,45 +74,48 @@ public class GravatarViewerController implements Initializable {
                 fileTypeExtensions.add(ext);
             }
         }
-        imageTypeChoiceBox.setItems(FXCollections.observableArrayList(fileTypeExtensions));
-        imageTypeChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<FileTypeExtension>() {
-            @Override
-            public void changed(ObservableValue<? extends FileTypeExtension> observableValue, FileTypeExtension oldValue, FileTypeExtension newValue) {
-                urlBuilder.fileTypeExtension(newValue);
-            }
-        });
+        imageTypeComboBox.setItems(FXCollections.observableArrayList(fileTypeExtensions));
 
-        final List<Rating> ratings = Arrays.asList(Rating.values());
-        ratingChoiceBox.setItems(FXCollections.observableArrayList(ratings));
-        ratingChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rating>() {
+        gravatarSizeComboBox.setItems(FXCollections.observableArrayList(
+                Integer.valueOf(16),
+                Integer.valueOf(32),
+                Integer.valueOf(64),
+                Integer.valueOf(128),
+                Integer.valueOf(256),
+                Integer.valueOf(80),
+                Integer.valueOf(160),
+                Integer.valueOf(240)
+        ));
+        gravatarSizeComboBox.setCellFactory(new Callback<ListView<Integer>, ListCell<Integer>>() {
             @Override
-            public void changed(ObservableValue<? extends Rating> observableValue, Rating oldValue, Rating newValue) {
-                urlBuilder.rating(newValue);
+            public ListCell<Integer> call(ListView<Integer> listView) {
+                final ListCell<Integer> cell = new ListCell<Integer>() {
+                    @Override
+                    protected void updateItem(Integer item, boolean empty) {
+                        super.updateItem(item, empty);
+                        String text = null;
+                        text = String.format("%d x %d", item, item);
+                        if (item != null && item.intValue() == 80) {
+                            text += " (default)";
+                            setStyle("-fx-font-weight: bold;");
+                        }
+                        setText(text);
+                    }
+                };
+                return cell;
             }
         });
+        gravatarSizeComboBox.getSelectionModel().select(Integer.valueOf(80));
 
-        forceDefaultImageCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
-                urlBuilder.forceDefault(newValue);
-            }
-        });
-
-        forceHttpsCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
-                urlBuilder.secure(newValue);
-            }
-        });
-
-        emailAddressTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                urlBuilder.email(newValue);
-            }
-        });
+        // Bind all the values of the choice boxes and stuff to the GravatarImageView instance
+        gravatarImageView.defaultImageProperty().bind(defaultImageComboBox.getSelectionModel().selectedItemProperty());
+        gravatarImageView.fileTypeExtensionProperty().bind(imageTypeComboBox.getSelectionModel().selectedItemProperty());
+        gravatarImageView.ratingProperty().bind(ratingComboBox.getSelectionModel().selectedItemProperty());
+        gravatarImageView.forceDefaultProperty().bind(forceDefaultImageCheckBox.selectedProperty());
+        gravatarImageView.secureProperty().bind(forceHttpsCheckBox.selectedProperty());
+        gravatarImageView.sizeProperty().bind(gravatarSizeComboBox.getSelectionModel().selectedItemProperty());
+        gravatarImageView.emailProperty().bind(emailAddressTextField.textProperty());
 
     }
 
 }
-
