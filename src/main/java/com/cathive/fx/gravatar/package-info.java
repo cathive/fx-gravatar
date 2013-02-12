@@ -16,7 +16,6 @@
 
 /**
  * Gravatar implementation for JavaFX 2.
- * See {@link http://en.gravatar.com/site/implement/images/} for further details.
  */
 
 package com.cathive.fx.gravatar;
