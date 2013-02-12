@@ -84,13 +84,13 @@ public final class GravatarImageView extends ImageView {
     }
 
     public URL getGravatarUrl() {
-        urlBuilder.size(size.get());
-        urlBuilder.fileTypeExtension(fileTypeExtension.get());
-        urlBuilder.defaultImage(defaultImage.get());
-        urlBuilder.forceDefault(forceDefault.get());
-        urlBuilder.rating(rating.get());
-        urlBuilder.secure(secure.get());
-        urlBuilder.email(email.get());
+        urlBuilder.size(getSize());
+        urlBuilder.fileTypeExtension(getFileTypeExtension());
+        urlBuilder.defaultImage(getDefaultImage());
+        urlBuilder.forceDefault(isForceDefault());
+        urlBuilder.rating(getRating());
+        urlBuilder.secure(isSecure());
+        urlBuilder.email(getEmail());
         return urlBuilder.build();
     }
 
