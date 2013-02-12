@@ -77,12 +77,11 @@
   </developers>
 
   <scm>
-      <connection>scm:git:https://github.com/cathive/fx-gravatar.git</connection>
-      <developerConnection>scm:git:git://github.com/cathive/fx-gravatar.git</developerConnection>
-      <tag>master</tag>
-      <url>https://github.com/cathive/fx-gravatar/</url>
+    <connection>scm:git:https://github.com/cathive/fx-gravatar.git</connection>
+    <developerConnection>scm:git:git@github.com:cathive/fx-gravatar.git</developerConnection>
+    <tag>master</tag>
+    <url>https://github.com/cathive/fx-gravatar/</url>
   </scm>
-
 
   <build>
     <plugins>
