@@ -34,25 +34,25 @@ public enum FileTypeExtension {
 
     /**
      * JSON Profile Data.
-     * See {@link http://en.gravatar.com/site/implement/profiles/json/} for details
+     * See {@link "http://en.gravatar.com/site/implement/profiles/json/"} for details
      */
     JSON(".json", false),
 
     /**
      * XML Profile Data.
-     * See {@link http://en.gravatar.com/site/implement/profiles/xml/} for details
+     * See {@link "http://en.gravatar.com/site/implement/profiles/xml/"} for details
      */
     XML(".xml", false),
 
     /**
      * PHP Profile Data.
-     * See {@link http://en.gravatar.com/site/implement/profiles/php/} for details
+     * See {@link "http://en.gravatar.com/site/implement/profiles/php/"} for details
      */
     PHP(".php", false),
 
     /**
      * VCF/vCard.
-     * See {@link http://en.gravatar.com/site/implement/profiles/vcf/} for details
+     * See {@link "http://en.gravatar.com/site/implement/profiles/vcf/"} for details
      */
     VCF(".vcf", false),
 
@@ -61,7 +61,7 @@ public enum FileTypeExtension {
      * Produces a QR Code image in PNG format that will link directly to the
      * Gravatar profile page of the requested user when scanned by a
      * QR-compatible device.
-     * See {@link http://en.gravatar.com/site/implement/profiles/qr/} for details
+     * See {@link "http://en.gravatar.com/site/implement/profiles/qr/"} for details
      */
     QR_CODE(".qr", true);
 
