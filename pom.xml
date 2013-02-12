@@ -22,7 +22,7 @@
   <groupId>com.cathive.fx</groupId>
   <artifactId>fx-gravatar</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>CathiveFX Gravatar Library</name>
   <description>Library to load Gravatar images from www.gravatar.com</description>
   <url>http://www.cathive.com/</url>
