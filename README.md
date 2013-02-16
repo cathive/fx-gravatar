@@ -5,6 +5,8 @@ www.gravatar.com
 It also provides a little example application , the "Gravatar Viewer"
 to demonstrate it's usage with JavaFX.
 
+![Screenshot](screenshots/gravatar-viewer.png "Gravatar Viewer App")
+
 A compiled and ready-to-use version of this library can be found in the
 Sonatype OSS Maven Repository (oss.sonatype.org). To use the library
 in your Maven based projects just add the following lines to your
