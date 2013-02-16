@@ -211,7 +211,9 @@
     <profile>
       <id>javafx</id>
       <activation>
-        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>!skip-javafx-profile</name>
+        </property>
       </activation>
       <dependencies>
         <dependency>
