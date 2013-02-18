@@ -20,9 +20,14 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.SceneBuilder;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageBuilder;
 import javafx.stage.StageStyle;
@@ -33,30 +38,63 @@ import javafx.stage.StageStyle;
  */
 public class GravatarViewer extends Application {
 
+    private ResourceBundle resources;
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+        resources = ResourceBundle.getBundle(GravatarViewer.class.getName());
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+
+        final Parent root = FXMLLoader.load(getClass().getResource("GravatarViewer.fxml"), resources);
+        final MouseEventHandler meh = new MouseEventHandler(root);
+        root.setOnMousePressed(meh);
+        root.setOnMouseDragged(meh);
+
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        StageBuilder.create()
+                .title(resources.getString("APP_NAME"))
+                .resizable(false)
+                .scene(SceneBuilder.create()
+                        .fill(Color.TRANSPARENT)
+                        .root(root)
+                        .stylesheets("/com/cathive/fx/gravatar/viewer/GravatarViewer.css")
+                        .build())
+                .applyTo(primaryStage);
+
+        primaryStage.show();
+
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
-    
-    @Override
-    public void start(Stage primaryStage) throws IOException {
 
-        final ResourceBundle resources = ResourceBundle.getBundle(GravatarViewer.class.getName());
-        final Parent root = FXMLLoader.load(getClass().getResource("GravatarViewer.fxml"), resources);
-
-        StageBuilder.create()
-                .title(resources.getString("APP_TITLE"))
-                .resizable(false)
-                .scene(SceneBuilder.create()
-                        .root(root)
-                        .build())
-                .applyTo(primaryStage);
-        primaryStage.initStyle(StageStyle.DECORATED);
-
-        primaryStage.show();
-
+    static class MouseEventHandler implements EventHandler<MouseEvent> {
+        final Node node;
+        double initialX;
+        double initialY;
+        MouseEventHandler(final Node node) {
+            super();
+            this.node = node;
+        }
+        @Override
+        public void handle(MouseEvent me) {
+            final EventType<?> eventType = me.getEventType();
+            if (eventType.equals(MouseEvent.MOUSE_DRAGGED)) {
+                node.getScene().getWindow().setX(me.getScreenX() - initialX);
+                node.getScene().getWindow().setY(me.getScreenY() - initialY);   
+            } else  if (eventType.equals(MouseEvent.MOUSE_PRESSED)) {
+                initialX = me.getSceneX();
+                initialY = me.getSceneY();
+            }
+        }
     }
 
 }

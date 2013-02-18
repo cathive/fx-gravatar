@@ -15,92 +15,107 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-
 <?language javascript?>
-
+<?import com.cathive.fx.gravatar.*?>
+<?import com.cathive.fx.gravatar.GravatarImageView?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
-<?import com.cathive.fx.gravatar.GravatarImageView?>
-<?scenebuilder-classpath-element ../../../../../../resources?>
-<?scenebuilder-classpath-element ../../../../../../java?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-classpath-element ../../../../../../../../target/classes?>
 <?scenebuilder-preview-i18n-resource GravatarViewer.properties?>
 <?scenebuilder-stylesheet GravatarViewer.css?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" padding="$x2" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cathive.fx.gravatar.viewer.GravatarViewerController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cathive.fx.gravatar.viewer.GravatarViewerController">
   <fx:define>
-    <String fx:id="cathiveUrl" fx:value="http://www.cathive.com/"/>
-    <String fx:id="githubUrl" fx:value="http://github.com/cathive/fx-gravatar/"/>
+    <String fx:value="http://www.cathive.com/" fx:id="cathiveUrl"/>
+    <String fx:value="http://github.com/cathive/fx-gravatar/" fx:id="githubUrl"/>
+    <Boolean fx:value="false" fx:id="debugFlag"/>
+    <Double fx:value="1.7976931348623157E308" fx:id="maxValue"/>
+    <Double fx:value="8.0" fx:id="defaultSpacing"/>
+    <Rectangle fx:id="rootPaneShape" arcHeight="16.0" arcWidth="16.0" />
   </fx:define>
-  <children>
-    <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <bottom>
-        <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" text="$githubUrl" BorderPane.alignment="CENTER" />
-      </bottom>
-      <center>
-        <VBox BorderPane.alignment="TOP_CENTER">
-          <children>
-            <Label text="Please enter a valid email address below!" />
-            <HBox>
-              <children>
-                <TextField fx:id="emailAddressTextField" onAction="#loadGravatar" prefWidth="259.0">
-                  <HBox.margin>
-                    <Insets />
-                  </HBox.margin>
-                </TextField>
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#loadGravatar" text="%LOAD_GRAVATAR_BUTTON_TEXT">
-                  <HBox.margin>
-                    <Insets left="4.0" />
-                  </HBox.margin>
-                </Button>
-              </children>
-              <VBox.margin>
-                <Insets top="4.0" />
-              </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-              <children>
-                <GravatarImageView id="" fx:id="gravatarImageView" fitHeight="80.0" fitWidth="80.0" preserveRatio="true" />
-              </children>
-            </HBox>
-          </children>
-          <padding>
-            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-          </padding>
-        </VBox>
-      </center>
-      <left>
-        <TitledPane collapsible="false" minWidth="180.0" prefHeight="400.0" prefWidth="180.0" text="Gravatar Properties" BorderPane.alignment="TOP_LEFT">
+  <fx:script><![CDATA[
+    rootPaneShape.widthProperty().bind(rootPane.widthProperty());
+    rootPaneShape.heightProperty().bind(rootPane.heightProperty());
+    rootPane.setClip(rootPaneShape);
+  ]]></fx:script>
+  <top>
+    <AnchorPane fx:id="windowTitle" prefHeight="-1.0" prefWidth="-1.0" BorderPane.margin="$x1">
+      <children>
+        <Label fx:id="windowTitleLabel" alignment="TOP_CENTER" labelFor="$rootPane" maxWidth="-1.0" prefWidth="-1.0" text="%APP_NAME" textAlignment="LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Button fx:id="exitButton" contentDisplay="GRAPHIC_ONLY" minHeight="16.0" minWidth="16.0" mnemonicParsing="false" onAction="#exitApplication" prefHeight="16.0" prefWidth="16.0" text="Exit" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <graphic>
+            <Text fontSmoothingType="LCD" opacity="0.8" smooth="false" stroke="WHITE" strokeType="CENTERED" strokeWidth="1.0" text="x">
+              <effect>
+                <DropShadow />
+              </effect>
+              <font>
+                <Font name="Monospaced Regular" size="9.0" />
+              </font>
+            </Text>
+          </graphic>
+          <tooltip>
+            <Tooltip text="%EXIT_BUTTON_TOOLTIP" />
+          </tooltip>
+        </Button>
+      </children>
+    </AnchorPane>
+  </top>
+  <center>
+    <HBox prefHeight="-1.0" prefWidth="-1.0" spacing="${defaultSpacing}" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <TitledPane collapsible="false" maxHeight="1.7976931348623157E308" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" text="Gravatar Properties">
           <content>
-            <VBox spacing="4.0">
+            <VBox spacing="${defaultSpacing}">
               <children>
-                <CheckBox fx:id="forceHttpsCheckBox" mnemonicParsing="false" prefWidth="160.0" text="Force HTTPS" VBox.vgrow="ALWAYS" />
-                <CheckBox fx:id="forceDefaultImageCheckBox" mnemonicParsing="false" prefWidth="160.0" text="Force default image" />
+                <CheckBox fx:id="forceHttpsCheckBox" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="-1.0" text="Force HTTPS" />
+                <CheckBox fx:id="forceDefaultImageCheckBox" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="-1.0" text="Force default image" />
                 <Label prefWidth="160.0" text="Image Type">
                   <VBox.margin>
                     <Insets top="16.0" fx:id="x1" />
                   </VBox.margin>
                 </Label>
-                <ComboBox fx:id="imageTypeComboBox" prefWidth="160.0"/>
+                <ComboBox fx:id="imageTypeComboBox" maxWidth="1.7976931348623157E308" prefWidth="160.0" />
                 <Label prefWidth="160.0" text="Rating" VBox.margin="$x1" />
-                <ComboBox fx:id="ratingComboBox" prefWidth="176.0"/>
+                <ComboBox fx:id="ratingComboBox" maxWidth="1.7976931348623157E308" prefWidth="-1.0" />
                 <Label prefWidth="160.0" text="Default Image" VBox.margin="$x1" />
-                <ComboBox fx:id="defaultImageComboBox" prefWidth="176.0"/>
+                <ComboBox fx:id="defaultImageComboBox" maxWidth="1.7976931348623157E308" prefWidth="-1.0" />
                 <Label prefWidth="160.0" text="Size" VBox.margin="$x1" />
-                <ComboBox fx:id="gravatarSizeComboBox" prefWidth="176.0"/>
+                <ComboBox fx:id="gravatarSizeComboBox" maxWidth="1.7976931348623157E308" prefWidth="-1.0" />
               </children>
               <padding>
-                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" fx:id="x2" />
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
               </padding>
             </VBox>
           </content>
         </TitledPane>
-      </left>
-    </BorderPane>
-  </children>
-</AnchorPane>
+        <VBox spacing="${defaultSpacing}" HBox.hgrow="ALWAYS">
+          <children>
+            <HBox spacing="${defaultSpacing}">
+              <children>
+                <TextField fx:id="emailAddressTextField" onAction="#loadGravatar" prefWidth="259.0" promptText="Please enter a valid email address" HBox.hgrow="ALWAYS" />
+                <Button alignment="CENTER" defaultButton="false" mnemonicParsing="false" onAction="#loadGravatar" text="%LOAD_GRAVATAR_BUTTON_TEXT" wrapText="false" HBox.hgrow="SOMETIMES" />
+              </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
+              <children>
+                <GravatarImageView id="" fx:id="gravatarImageView" fitHeight="80.0" fitWidth="80.0" preserveRatio="true" HBox.hgrow="ALWAYS" />
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </center>
+  <padding>
+    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+  </padding>
+</BorderPane>

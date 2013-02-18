@@ -22,7 +22,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -116,6 +118,11 @@ public class GravatarViewerController implements Initializable {
         gravatarImageView.sizeProperty().bind(gravatarSizeComboBox.getSelectionModel().selectedItemProperty());
         gravatarImageView.emailProperty().bind(emailAddressTextField.textProperty());
 
+    }
+
+    @FXML
+    void exitApplication(final ActionEvent event) {
+        Platform.exit();
     }
 
 }

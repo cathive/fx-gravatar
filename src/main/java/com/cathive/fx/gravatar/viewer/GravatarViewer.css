@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Cat Hive Developers.
+ * Copyright (C) 2013 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,3 +13,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+.root {
+
+    /* Looked up colors */
+    solarized-base03: #002b36;
+    solarized-base02: #073642;
+    solarized-base01: #586e75;
+    solarized-base00: #657b83;
+    solarized-base0: #839496;
+    solarized-base1: #93a1a1;
+    solarized-base2: #eee8d5;
+    solarized-base3: #fdf6e3;
+    solarized-yellow: #b58900;
+    solarized-orange: #cb4b16;
+    solarized-red: #dc322f;
+    solarized-magenta: #d33682;
+    solarized-violet: #6c71c4;
+    solarized-blue: #268bd2;
+    solarized-cyan: #2aa198;
+    solarized-green: #859900;
+
+    -fx-background-color: solarized-base0;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-color: solarized-base03;
+    -fx-border-radius: 8px;
+    -fx-effect: innershadow( three-pass-box , rgba(255,255,255,0.7) , 6, 0.0 , 0 , 2 );
+
+}
+
+.button {
+  -fx-border-width: 1px;
+  -fx-border-color: solarized-base03;
+  -fx-border-radius: 4px;
+  -fx-background-radius: 4px;
+  
+}
+
+/* ------------------------------------------------------------------------- */
+
+#windowTitle {
+  -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+#windowTitleLabel {
+  -fx-font-family: "monospace";
+  -fx-font-size: 10px;
+  -fx-font-weight: normal;
+}
+
+#exitButton {
+  -fx-border-radius: 8px;
+  -fx-border-color: solarized-base02;
+  -fx-border-width: 1px;
+  -fx-background-radius: 8px;
+  -fx-base: solarized-red;
+}
