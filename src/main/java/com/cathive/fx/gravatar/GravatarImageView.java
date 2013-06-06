@@ -67,20 +67,7 @@ public final class GravatarImageView extends ImageView {
      */
     public void update() {
         final URL gravatarUrl = getGravatarUrl();
-        final Task<Image> task = new Task<Image>() {
-            @Override
-            protected Image call() throws Exception {
-                return new Image(gravatarUrl.openStream());
-            }
-            @Override
-            protected void succeeded() {
-                super.succeeded();
-                GravatarImageView.this.setImage(this.getValue());
-                fitWidthProperty().set(getSize());
-                fitHeightProperty().set(getSize());
-            }
-        };
-        executorService.execute(task);
+        setImage(new Image(gravatarUrl.toExternalForm(), true));
     }
 
     public URL getGravatarUrl() {
