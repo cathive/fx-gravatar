@@ -16,112 +16,102 @@
  limitations under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.cathive.fx</groupId>
-  <artifactId>fx-gravatar</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0.1-SNAPSHOT</version>
-  <name>CathiveFX Gravatar Library</name>
-  <description>Library to load Gravatar images from www.gravatar.com</description>
-  <url>http://www.cathive.com/</url>
-  <inceptionYear>2012</inceptionYear>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cathive.fx</groupId>
+    <artifactId>fx-gravatar</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.1-SNAPSHOT</version>
+    <name>CathiveFX Gravatar Library</name>
+    <description>Library to load Gravatar images from www.gravatar.com</description>
+    <url>http://www.cathive.com/</url>
+    <inceptionYear>2012</inceptionYear>
 
-  <parent>
-    <groupId>com.cathive</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>3</version>
-  </parent>
+    <parent>
+        <groupId>com.cathive</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>3</version>
+    </parent>
 
-  <properties/>
+    <properties/>
 
-  <prerequisites>
-    <maven>3.0.0</maven>
-  </prerequisites>
+    <prerequisites>
+        <maven>3.0.0</maven>
+    </prerequisites>
 
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-      <distribution>repo</distribution>
-      <comments />
-    </license>
-  </licenses>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+            <comments/>
+        </license>
+    </licenses>
 
-  <organization>
-    <name>The Cat Hive Developers</name>
-    <url>http://cathive.com/</url>
-  </organization>
+    <organization>
+        <name>The Cat Hive Developers</name>
+        <url>http://cathive.com/</url>
+    </organization>
 
-  <issueManagement>
-    <system>github</system>
-    <url>https://github.com/cathive/fx-gravatar/issues</url>
-  </issueManagement>
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/cathive/fx-gravatar/issues</url>
+    </issueManagement>
 
-  <developers>
-    <developer>
-      <id>headcr4sh</id>
-      <name>Benjamin P. Jung</name>
-      <email>headcr4sh@gmail.com</email>
-      <url>http://profiles.google.com/headcr4sh</url>
-      <timezone>Europe/Berlin</timezone>
-      <properties />
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-  </developers>
+    <developers>
+        <developer>
+            <id>headcr4sh</id>
+            <name>Benjamin P. Jung</name>
+            <email>headcr4sh@gmail.com</email>
+            <url>http://profiles.google.com/headcr4sh</url>
+            <timezone>Europe/Berlin</timezone>
+            <properties/>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
 
-  <scm>
-    <connection>scm:git:https://github.com/cathive/fx-gravatar.git</connection>
-    <developerConnection>scm:git:git@github.com:cathive/fx-gravatar.git</developerConnection>
-    <tag>master</tag>
-    <url>https://github.com/cathive/fx-gravatar/</url>
-  </scm>
+    <scm>
+        <connection>scm:git:https://github.com/cathive/fx-gravatar.git</connection>
+        <developerConnection>scm:git:git@github.com:cathive/fx-gravatar.git</developerConnection>
+        <tag>master</tag>
+        <url>https://github.com/cathive/fx-gravatar/</url>
+    </scm>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-      </plugin>
-    </plugins>
-    <resources>
-      <resource>
-        <directory>${project.build.sourceDirectory}</directory>
-        <filtering>false</filtering>
-        <includes>
-          <include>**/*.css</include>
-          <include>**/*.fxml</include>
-          <include>**/*.js</include>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
-    </resources>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>

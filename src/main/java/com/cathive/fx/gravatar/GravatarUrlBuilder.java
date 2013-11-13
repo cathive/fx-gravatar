@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Cat Hive Developers.
+ * Copyright (C) 2012-2013 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,9 +44,9 @@ public final class GravatarUrlBuilder implements Builder<URL> {
 
     private String emailHash = null;
     private String fileTypeExtension = FILE_TYPE_EXTENSION_DEFAULT;
+
     /**
-     * Default size is {@link #SIZE_DEFAULT 80px}.
-     * <p>Minimum value: {@link #SIZE_MINIMUM 1px}, maximum value: {@link MAX_SIZE 512px}.</p>
+     * <p>Minimum value: {@link #SIZE_MINIMUM}, maximum value: {@link #SIZE_MAXIMUM}.</p>
      */
     private Integer size = null;
     private String defaultImage = DEFAULT_IMAGE_DEFAULT;
@@ -112,17 +112,17 @@ public final class GravatarUrlBuilder implements Builder<URL> {
         return this;
     }
 
-    public GravatarUrlBuilder fileTypeExtension(FileTypeExtension fileTypeExtension) {
+    public GravatarUrlBuilder fileTypeExtension(final FileTypeExtension fileTypeExtension) {
         this.fileTypeExtension = fileTypeExtension == null ? null : fileTypeExtension.stringValue();
         return this;
     }
 
-    public GravatarUrlBuilder fileTypeExtension(String fileTypeExtension) {
+    public GravatarUrlBuilder fileTypeExtension(final String fileTypeExtension) {
         this.fileTypeExtension = fileTypeExtension;
         return this;
     }
     
-    public GravatarUrlBuilder size(int size) {
+    public GravatarUrlBuilder size(final int size) {
         if (size < SIZE_MINIMUM || size > SIZE_MAXIMUM) {
             throw new IllegalArgumentException(String.format("Size must be a value between %d and %d", SIZE_MINIMUM, SIZE_MAXIMUM));
         }
@@ -130,12 +130,12 @@ public final class GravatarUrlBuilder implements Builder<URL> {
         return this;
     }
 
-    public GravatarUrlBuilder defaultImage(DefaultImage defaultImage) {
+    public GravatarUrlBuilder defaultImage(final DefaultImage defaultImage) {
         this.defaultImage = defaultImage == null ? null : defaultImage.stringValue();
         return this;
     }
 
-    public GravatarUrlBuilder defaultImage(String defaultImage) {
+    public GravatarUrlBuilder defaultImage(final String defaultImage) {
         try {
             this.defaultImage = URLEncoder.encode(defaultImage, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -144,38 +144,39 @@ public final class GravatarUrlBuilder implements Builder<URL> {
         return this;
     }
 
-    public GravatarUrlBuilder forceDefault(boolean forceDefault) {
+    public GravatarUrlBuilder forceDefault(final boolean forceDefault) {
         this.forceDefault = forceDefault;
         return this;
     }
 
-    public GravatarUrlBuilder rating(Rating rating) {
+    public GravatarUrlBuilder rating(final Rating rating) {
         this.rating = rating == null ? null : rating.stringValue();
         return this;
     }
 
-    public GravatarUrlBuilder rating(String rating) {
+    public GravatarUrlBuilder rating(final String rating) {
         this.rating = rating;
         return this;
     }
 
-    public GravatarUrlBuilder secure(boolean secure) {
+    public GravatarUrlBuilder secure(final boolean secure) {
         this.secure = secure;
         return this;
     }
+
 
     /**
      * Helper method to create MD5 encoded <code>String</code> objects.
      * @param message   message to be encoded
      * @return  An MD5 encoded version of the input string
      */
-    static String md5Hex(String message) {
+    private static String md5Hex(String message) {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            final MessageDigest md = MessageDigest.getInstance("MD5");
             final byte[] array = md.digest(message.getBytes("UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < array.length; ++i) {
-                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
+            final StringBuilder sb = new StringBuilder();
+            for (final byte b : array) {
+                sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1, 3));
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
