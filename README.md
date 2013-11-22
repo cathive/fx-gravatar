@@ -1,3 +1,8 @@
+fx-gravatar
+===========
+
+[![Build Status](https://travis-ci.org/cathive/fx-gravatar.png)](https://travis-ci.org/cathive/fx-gravatar)
+
 This library provides a nice API to be used in conjunction with
 so-called globally recognized avatars, which are available from
 www.gravatar.com
@@ -16,6 +21,6 @@ in your Maven based projects just add the following lines to your
 <dependency>
   <groupId>com.cathive.fx</groupId>
   <artifactId>fx-gravatar</artifactId>
-  <version>1.0.0</version>
+  <version>${fx-gravatar.version}</version>
 </dependency>
 ```
